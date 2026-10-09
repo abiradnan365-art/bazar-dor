@@ -14,7 +14,7 @@ const NavLinks = async (): Promise<React.ReactElement> => {
     // console.log(data);
     return (
         <div className="flex gap-4 container max-w-6xl mx-auto ">
-            {data.map((n,i) => <Link key={i} href={`/category/${n.slug}`}>{n.icon}{n.nameBn}</Link> )}
+            {data.map((n,i) => <Link  key={i} href={`/category/${n.slug}`}>{n.icon}{n.nameBn}</Link> )}
         </div>
     );
 };

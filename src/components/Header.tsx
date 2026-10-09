@@ -13,7 +13,7 @@ const Header = async () => {
         <div className=" ">
 
             <div className="flex items-center justify-between container max-w-6xl mx-auto p-4">
-                <Link href="/" >
+                <Link  href="/" >
                     <div className="flex items-center gap-2 ">
                         <Image className="bg-green-700 p-2 rounded-lg w-10 h-10"
                             src="/logo-icon.png"
