@@ -1,0 +1,95 @@
+interface Product {
+    id: string | number;
+    image?: string;
+    categoryIcon?: string;
+    nameBn: string;
+    unit: string;
+    today: number | string;
+    change?: {
+        dir?: string;
+        pct?: number | string;
+    };
+};
+
+const AllProducts = async () => {
+    const res = await fetch(
+        "https://api.api-store.workers.dev/api/bazardor/products"
+    );
+
+    const data = (await res.json()) as Product[];
+
+
+
+    return (
+        <section className="mx-auto max-w-6xl  px-5 py-6">
+            <h2 className="mb-5 flex items-center gap-2 text-2xl font-bold ">
+
+                সব পণ্য
+            </h2>
+            <p className="text-gray-500">{`মোট ৩৩টি পণ্য দেখানো হচ্ছে`}</p>
+
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+                {data.map((item: Product) => (
+                    <div
+                        key={item.id}
+                        className="rounded-[32px] border-2 border-gray-200 bg-white p-6 transition-shadow duration-300 hover:shadow-md"
+                    >
+
+                        <div className="flex items-center gap-6">
+                            <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-[26px] bg-gray-100 text-5xl">
+                                {item.image || item.categoryIcon}
+                            </div>
+
+                            <div>
+                                <h3 className="text-2xl font-bold ">
+                                    {item.nameBn}
+                                </h3>
+
+                                <p className="mt-1 text-xl ">
+                                    {item.unit === "kg"
+                                        ? "প্রতি কেজি"
+                                        : item.unit === "piece"
+                                            ? "প্রতি পিস"
+                                            : `প্রতি ${item.unit}`}
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div className="mt-7 flex items-end justify-between gap-3">
+                            <div>
+                                <p className="text-xl ">
+                                    আজকের দাম
+                                </p>
+
+                                <p className="mt-1 text-3xl font-bold ">
+                                    ৳{item.today} টাকা
+                                </p>
+                            </div>
+
+                            {item.change?.dir === "up" ? (
+                                <span className="mb-1 flex shrink-0 items-center gap-2 rounded-full  px-4 py-3 text-xl font-bold text-red-600">
+                                    <span>▲</span>
+                                    {Number(item.change?.pct)}%
+                                </span>
+                            ) : item.change?.dir === "down" ? (
+                                <span className="mb-1 flex shrink-0 items-center gap-2 rounded-full  px-4 py-3 text-xl font-bold text-green-600">
+                                    <span>▼</span>
+                                    {Number(item.change?.pct)}%
+                                </span>
+                            ) : (
+                                <span className="mb-1 flex shrink-0 items-center gap-2 rounded-full  px-4 py-3 text-xl font-bold text-gray-600">
+                                    <span>─</span>
+                                    {Number(item.change?.pct)}%
+                                </span>
+                            )}
+
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </section>
+    );
+};
+
+export default AllProducts;
