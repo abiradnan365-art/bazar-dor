@@ -28,6 +28,7 @@ const NavLinks = (): React.ReactElement => {
 
     return (
         <div className="flex gap-4 container max-w-6xl mx-auto ">
+             <Link href={'/'}>হোম</Link>
             {data.map((n,i) => <Link className={pathname === '/category/' + n.slug ? 'bg-green-700 text-white p-1 rounded-sm' : ''} key={i} href={`/category/${n.slug}`}>{n.icon}{n.nameBn}</Link> )}
         </div>
     );

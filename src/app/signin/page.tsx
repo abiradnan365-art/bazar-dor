@@ -1,5 +1,6 @@
 "use client";
 import { authClient } from '@/lib/auth-client';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import React from 'react';
 import { toast } from "react-toastify";
@@ -58,6 +59,7 @@ const SignInPage = () => {
             <div className="mt-5">
                 <form className="flex flex-col items-center gap-4" onSubmit={onSubmit}>
                     <h2 className='font-bold text-2xl text-green-700'>সাইন ইন</h2>
+                    <p className="text-sm text-gray-500">বিস্তারিত দাম, বাজার তুলনা ও প্রোফাইল দেখতে অ্যাকাউন্টে ঢুকুন।</p>
                     <fieldset className="fieldset border-base-300 rounded-box w-xs  p-4">
 
 
@@ -75,6 +77,8 @@ const SignInPage = () => {
                 <div className="flex flex-col items-center  mt-4">
                     <button onClick={handleGoogleSignIn} className="btn btn-outline mt-4" >Google দিয়ে চালিয়ে যান</button>
                     <button onClick={handleGitHubSignIn} className="btn btn-outline mt-4">GitHub দিয়ে চালিয়ে যান</button>
+                    <p className="mt-5">অ্যাকাউন্ট নেই? <Link className="text-green-700 hover:underline " href="/signup">সাইন আপ করুন</Link> </p>
+                    <Link className="text-gray-500 mt-5 text-sm" href="/">← হোম পেজে ফিরে যান</Link>
                 </div>
             </div>
         </div>

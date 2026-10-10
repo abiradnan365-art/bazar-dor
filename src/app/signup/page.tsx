@@ -1,6 +1,7 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
+import Link from "next/link";
 
 import { redirect } from "next/navigation";
 import { toast } from "react-toastify";
@@ -68,7 +69,8 @@ const SignUpPage = () => {
             <div>
                 <div className="mt-5">
                     <form onSubmit={onSubmit} className="flex flex-col items-center gap-4" >
-                        <h2 className='font-bold text-2xl text-green-700'>সাইন আপ</h2>
+                        <h2 className='font-bold text-2xl text-green-700'>অ্যাকাউন্ট তৈরি করুন</h2>
+                        <p className="text-sm text-gray-500">বিনা খরচে সাইন আপ করে সব বিস্তারিত দাম দেখুন।</p>
                         <fieldset className="fieldset border-base-300 rounded-box w-xs  p-4">
 
                             <label className="label">নাম</label>
@@ -86,13 +88,16 @@ const SignUpPage = () => {
 
                             <button type="submit" className="btn btn-neutral mt-4 bg-green-700">সাইন আপ করুন</button>
                         </fieldset>
+
                         <p className="text-sm text-gray-500">-----------------অথবা-----------------</p>
                     </form>
 
                     <div className="flex flex-col items-center  mt-4">
-                        <button onClick={handleGoogleSignIn} className="btn btn-outline mt-4" >Google দিয়ে চালিয়ে যান</button>
+                        <button onClick={handleGoogleSignIn} className="btn btn-outline mt-4">Google দিয়ে চালিয়ে যান</button>
                         <button onClick={handleGitHubSignIn} className="btn btn-outline mt-4">GitHub দিয়ে চালিয়ে যান</button>
+                        <Link className="text-gray-500 mt-5 text-sm" href="/">← হোম পেজে ফিরে যান</Link>
                     </div>
+                    
                 </div>
             </div>
         );
