@@ -10,7 +10,7 @@ const Header = async () => {
     })
 
     return (
-        <div className=" ">
+        <div className="sticky top-0 z-50 bg-white shadow-sm">
 
             <div className="flex items-center justify-between container max-w-6xl mx-auto p-4">
                 <Link  href="/" >

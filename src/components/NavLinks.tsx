@@ -1,5 +1,10 @@
+
+'use client';
+
 import Link from 'next/link';
-import React from 'react';
+import { usePathname } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+
 
 interface Category {
     slug: string;
@@ -7,14 +12,23 @@ interface Category {
     icon?: string;
 }
 
-const NavLinks = async (): Promise<React.ReactElement> => {
-    const res = await fetch("https://api.api-store.workers.dev/api/bazardor/categories");
-    const data: Category[] = await res.json();
-    
-    // console.log(data);
+const NavLinks = (): React.ReactElement => {
+    const [data, setData] = useState<Category[]>([]);
+    const pathname = usePathname();
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            const res = await fetch("https://api.api-store.workers.dev/api/bazardor/categories");
+            const categories: Category[] = await res.json();
+            setData(categories);
+        };
+
+        fetchCategories();
+    }, []);
+
     return (
         <div className="flex gap-4 container max-w-6xl mx-auto ">
-            {data.map((n,i) => <Link  key={i} href={`/category/${n.slug}`}>{n.icon}{n.nameBn}</Link> )}
+            {data.map((n,i) => <Link className={pathname === '/category/' + n.slug ? 'bg-green-700 text-white p-1 rounded-sm' : ''} key={i} href={`/category/${n.slug}`}>{n.icon}{n.nameBn}</Link> )}
         </div>
     );
 };
