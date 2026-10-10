@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import { Suspense } from "react";
 import Marquee from "@/components/Marquee";
+import Footer from "@/components/Footer";
 
 const hindSiliguri = Hind_Siliguri({
   weight: ["300", "400", "500", "600", "700"],
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           
           {children}
         </main>
+        <Footer />
       </body>
     </html>
   );
