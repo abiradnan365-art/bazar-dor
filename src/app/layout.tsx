@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import { Suspense } from "react";
 import Marquee from "@/components/Marquee";
 import Footer from "@/components/Footer";
+import Loading from "./category/[categoryId]/loading";
 
 const hindSiliguri = Hind_Siliguri({
   weight: ["300", "400", "500", "600", "700"],
@@ -25,16 +26,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${hindSiliguri.className}  h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div><Loading /></div>}>
           <Header />
         
           <Marquee />
-        </Suspense>
         <main  >
           
           {children}
         </main>
         <Footer />
+        </Suspense>
       </body>
     </html>
   );

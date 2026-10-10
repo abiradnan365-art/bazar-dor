@@ -1,5 +1,7 @@
+import Loading from '@/app/category/[categoryId]/loading';
 import MarketPriceCard from '@/components/MarketPriceCard';
 import React, { Suspense } from 'react';
+
 
 const ProdectsDetail = async ({ params }: { params: Promise<{ productsId: string }> }) => {
     const { productsId } = await params;
@@ -59,7 +61,7 @@ const ProdectsDetail = async ({ params }: { params: Promise<{ productsId: string
 };
 export default function ProductsPage({ params }: { params: Promise<{ productsId: string }> }) {
     return (
-        <Suspense fallback={<div className="p-5">Loading product...</div>}>
+        <Suspense fallback={<div className="p-5"><Loading /></div>}>
             <ProdectsDetail params={params} />
         </Suspense>
     );
