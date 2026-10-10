@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import React from "react";
 
 interface Market {
@@ -16,14 +17,14 @@ interface Product {
 }
 
 const MarketPriceCard = async ({ productsId }: { productsId: string }) => {
-    const res = await fetch(
-        `https://api.api-store.workers.dev/api/bazardor/products/${productsId}`
-    );
+    const res = await fetch(`https://openapi.programming-hero.com/api/bazardor/products/${productsId}`);
 
-   
+
 
     const data: Product = await res.json();
-
+    if (!data.markets || data.markets.length === 0) {
+       notFound();
+    }
     const minPrice = Math.min(...data.markets.map((market) => market.min));
 
     const maxPrice = Math.max(...data.markets.map((market) => market.max));
@@ -34,10 +35,11 @@ const MarketPriceCard = async ({ productsId }: { productsId: string }) => {
             0
         ) / data.markets.length;
 
+
     return (
         <div className="container mx-auto max-w-6xl p-4">
             <div className="rounded-xl border border-gray-200 bg-[#f8fbf8] p-4 sm:p-6">
-              
+
                 <h2 className="mb-3 text-sm font-bold text-gray-800">
                     দামের সারসংক্ষেপ
                 </h2>
@@ -58,7 +60,7 @@ const MarketPriceCard = async ({ productsId }: { productsId: string }) => {
                         </p>
                     </div>
 
-                   
+
                     <div className="rounded-xl border border-gray-200 p-4">
                         <p className="text-xs text-gray-500">
                             সর্বোচ্চ দাম
@@ -73,7 +75,7 @@ const MarketPriceCard = async ({ productsId }: { productsId: string }) => {
                         </p>
                     </div>
 
-                    
+
                     <div className="rounded-xl border border-gray-200 p-4">
                         <p className="text-xs text-gray-500">
                             গড় দাম
@@ -89,7 +91,7 @@ const MarketPriceCard = async ({ productsId }: { productsId: string }) => {
                     </div>
                 </div>
 
-                
+
                 <h2 className="mb-3 mt-6 text-base font-bold text-gray-800">
                     {data.nameBn} - বাজারভিত্তিক আজকের দাম
                 </h2>
@@ -127,11 +129,10 @@ const MarketPriceCard = async ({ productsId }: { productsId: string }) => {
                                 return (
                                     <tr
                                         key={`${market.market}-${index}`}
-                                        className={`border-t border-gray-200 ${
-                                            index % 2 === 0
+                                        className={`border-t border-gray-200 ${index % 2 === 0
                                                 ? "bg-[#f8fbf8]"
                                                 : "bg-[#eef4ef]"
-                                        }`}
+                                            }`}
                                     >
                                         <td className="px-3 py-3 text-gray-800">
                                             {market.market}
@@ -151,7 +152,7 @@ const MarketPriceCard = async ({ productsId }: { productsId: string }) => {
 
                                         <td className="px-3 py-3 text-right font-semibold  text-gray-900">
                                             {marketAvg} টাকা
-                                           
+
                                         </td>
                                     </tr>
                                 );

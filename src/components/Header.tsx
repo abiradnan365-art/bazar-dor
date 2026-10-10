@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { connection } from "next/server";
 import NavLinks from './NavLinks';
 import Link from 'next/link';
+import UserInfo from './UserInfo';
 
 const Header = async () => {
     await connection();
@@ -27,10 +28,7 @@ const Header = async () => {
                         </div>
                     </div>
                 </Link>
-                <div className="flex gap-2">
-                    <button className="btn ">সাইন ইন</button>
-                    <button className="btn  bg-green-700 text-white">সাইন আপ</button>
-                </div>
+                <UserInfo />
 
 
             </div>

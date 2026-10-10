@@ -6,6 +6,8 @@ import { Suspense } from "react";
 import Marquee from "@/components/Marquee";
 import Footer from "@/components/Footer";
 import Loading from "./category/[categoryId]/loading";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const hindSiliguri = Hind_Siliguri({
   weight: ["300", "400", "500", "600", "700"],
@@ -34,6 +36,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           
           {children}
         </main>
+        <ToastContainer />
         <Footer />
         </Suspense>
       </body>

@@ -1,15 +1,19 @@
 import Loading from '@/app/category/[categoryId]/loading';
+import { notFound } from "next/navigation";
 import MarketPriceCard from '@/components/MarketPriceCard';
 import React, { Suspense } from 'react';
 
 
 const ProdectsDetail = async ({ params }: { params: Promise<{ productsId: string }> }) => {
     const { productsId } = await params;
-    const res = await fetch(`https://api.api-store.workers.dev/api/bazardor/products/${productsId}`);
+    const res = await fetch(`https://openapi.programming-hero.com/api/bazardor/products/${productsId}`);
     const data = await res.json();
     // console.log(data);
     const difference = data.today - data.yesterday;
     // console.log(difference, "difference");
+    if (!data) {
+        notFound();
+    }
     return (
         <div className="container max-w-6xl mx-auto mt-4">
             <div className="flex justify-between border-2 border-gray-200 rounded-2xl p-4   ">
