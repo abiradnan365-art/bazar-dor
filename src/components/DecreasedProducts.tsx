@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface Product {
     id: string | number;
     image?: string;
@@ -23,6 +25,7 @@ const DecreasedProducts = async () => {
     );
 
     return (
+
         <section className="mx-auto max-w-6xl  px-5 py-6">
             <h2 className="mb-5 flex items-center gap-2 text-2xl font-bold ">
                 <span className="text-green-500">▼</span>
@@ -31,11 +34,12 @@ const DecreasedProducts = async () => {
 
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
                 {decreasedProducts.slice(0, 6).map((item: Product) => (
-                    <div
+                    <Link href={`/products/${item.id}`}
+
                         key={item.id}
                         className="rounded-[32px] border-2 border-gray-200 bg-white p-6 transition-shadow duration-300 hover:shadow-md"
                     >
-                        
+
                         <div className="flex items-center gap-6">
                             <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-[26px] bg-gray-100 text-5xl">
                                 {item.image || item.categoryIcon}
@@ -50,13 +54,13 @@ const DecreasedProducts = async () => {
                                     {item.unit === "kg"
                                         ? "প্রতি কেজি"
                                         : item.unit === "piece"
-                                          ? "প্রতি পিস"
-                                          : `প্রতি ${item.unit}`}
+                                            ? "প্রতি পিস"
+                                            : `প্রতি ${item.unit}`}
                                 </p>
                             </div>
                         </div>
 
-                       
+
                         <div className="mt-7 flex items-end justify-between gap-3">
                             <div>
                                 <p className="text-xl ">
@@ -73,10 +77,13 @@ const DecreasedProducts = async () => {
                                 {Number(item.change?.pct)}%
                             </span>
                         </div>
-                    </div>
+
+                    </Link>
                 ))}
             </div>
+
         </section>
+
     );
 };
 

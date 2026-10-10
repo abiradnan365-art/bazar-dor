@@ -1,39 +1,30 @@
-import Link from "next/link";
+import Link from 'next/link';
+import React from 'react';
 
 interface Product {
     id: string | number;
-    image?: string;
     categoryIcon?: string;
+    categoryNameBn?: string;
+    image?: string;
     nameBn: string;
     unit: string;
     today: number | string;
     change?: {
-        dir?: string;
+        dir?: "up" | "down" | "same";
         pct?: number | string;
     };
-};
+}
 
-const AllProducts = async () => {
-    const res = await fetch(
-        "https://api.api-store.workers.dev/api/bazardor/products"
-    );
+interface ProductsCardProps {
+    sortedProducts: Product[];
+}
 
-    const data = (await res.json()) as Product[];
-
-
-
+const ProductsCard = ({ sortedProducts }: ProductsCardProps) => {
     return (
-        <section className="mx-auto max-w-6xl  px-5 py-6">
-            <h2 className="mb-5 flex items-center gap-2 text-2xl font-bold ">
-
-                সব পণ্য
-            </h2>
-            <p className="text-gray-500">{`মোট ৩৩টি পণ্য দেখানো হচ্ছে`}</p>
-
+        
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-                {data.map((item: Product) => (
-                    <Link href={`/products/${item.id}`}
-                        key={item.id}
+                {sortedProducts.map((item) => (
+                    <Link href={`/products/${item.id}`} key={item.id}
                         className="rounded-[32px] border-2 border-gray-200 bg-white p-6 transition-shadow duration-300 hover:shadow-md"
                     >
 
@@ -43,11 +34,11 @@ const AllProducts = async () => {
                             </div>
 
                             <div>
-                                <h3 className="text-2xl font-bold ">
+                                <h3 className="text-2xl font-bold">
                                     {item.nameBn}
                                 </h3>
 
-                                <p className="mt-1 text-xl ">
+                                <p className="mt-1 text-xl">
                                     {item.unit === "kg"
                                         ? "প্রতি কেজি"
                                         : item.unit === "piece"
@@ -60,38 +51,36 @@ const AllProducts = async () => {
 
                         <div className="mt-7 flex items-end justify-between gap-3">
                             <div>
-                                <p className="text-xl ">
-                                    আজকের দাম
-                                </p>
+                                <p className="text-xl">আজকের দাম</p>
 
-                                <p className="mt-1 text-3xl font-bold ">
+                                <p className="mt-1 text-3xl font-bold">
                                     ৳{item.today} টাকা
                                 </p>
                             </div>
 
                             {item.change?.dir === "up" ? (
-                                <span className="mb-1 flex shrink-0 items-center gap-2 rounded-full  px-4 py-3 text-xl font-bold text-red-600">
+                                <span className="mb-1 flex shrink-0 items-center gap-2 rounded-full px-4 py-3 text-xl font-bold text-red-600">
                                     <span>▲</span>
-                                    {Number(item.change?.pct)}%
+                                    {Number(item.change.pct ?? 0)}%
                                 </span>
                             ) : item.change?.dir === "down" ? (
-                                <span className="mb-1 flex shrink-0 items-center gap-2 rounded-full  px-4 py-3 text-xl font-bold text-green-600">
+                                <span className="mb-1 flex shrink-0 items-center gap-2 rounded-full px-4 py-3 text-xl font-bold text-green-600">
                                     <span>▼</span>
-                                    {Number(item.change?.pct)}%
+                                    {Number(item.change.pct ?? 0)}%
                                 </span>
                             ) : (
-                                <span className="mb-1 flex shrink-0 items-center gap-2 rounded-full  px-4 py-3 text-xl font-bold text-gray-600">
+                                <span className="mb-1 flex shrink-0 items-center gap-2 rounded-full px-4 py-3 text-xl font-bold text-gray-600">
                                     <span>─</span>
-                                    {Number(item.change?.pct)}%
+                                    {Number(item.change?.pct ?? 0)}%
                                 </span>
                             )}
-
                         </div>
                     </Link>
                 ))}
             </div>
-        </section>
+       
+
     );
 };
 
-export default AllProducts;
+export default ProductsCard;
